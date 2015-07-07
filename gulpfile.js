@@ -5,6 +5,7 @@ var buffer = require('vinyl-buffer');
 var del = require('del');
 var gulp = require('gulp');
 var less = require('gulp-less');
+var livereload = require('gulp-livereload');
 var minifyCSS = require('gulp-minify-css');
 var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
@@ -45,7 +46,8 @@ gulp.task('javascript', function(){
     return b.bundle()
       .on('error', onError)
       .pipe(source('bundle.js'))
-      .pipe(gulp.dest('./dist'));
+      .pipe(gulp.dest('./dist'))
+      .pipe(livereload());
   }
 });
 
@@ -62,11 +64,13 @@ gulp.task('less', function() {
       .src('./less/**/*.less')
       .pipe(less())
       .on('error', onError)
-      .pipe(gulp.dest('./css'));
+      .pipe(gulp.dest('./css'))
+      .pipe(livereload());
   }
 });
 
 gulp.task('watch', function() {
+  livereload.listen();
   gulp.watch(['./src/**/*.js'], ['set-development', 'javascript']);
   gulp.watch(['./less/**/*.less'], ['set-development', 'less']);
 });
