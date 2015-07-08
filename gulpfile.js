@@ -71,8 +71,8 @@ gulp.task('less', function() {
 
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch(['./src/**/*.js'], ['set-development', 'javascript']);
-  gulp.watch(['./less/**/*.less'], ['set-development', 'less']);
+  gulp.watch(['src/**/*.js'], ['set-development', 'javascript']);
+  gulp.watch(['less/**/*.less'], ['set-development', 'less']);
 });
  
 gulp.task('prod', ['clean', 'javascript', 'less']);
